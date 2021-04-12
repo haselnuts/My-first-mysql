@@ -4056,3 +4056,144 @@ mysql> select Name, Title, ArtistID from Track inner join Album on Track.AlbumID
 10 rows in set (0.00 sec)
 
 mysql> tee file.txt
+mysql> select Name as Track, Title as Album, ArtistID inner join Album on Track.AlbumID = Album.AlbumID limit 10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inner join Album on Track.AlbumID = Album.AlbumID limit 10' at line 1
+mysql> select Name as Track, Title as Album, ArtistID from Track inner join Album on Track.AlbumID = Album.AlbumID limit 10;
++-----------------------------------------+---------------------------------------+----------+
+| Track                                   | Album                                 | ArtistID |
++-----------------------------------------+---------------------------------------+----------+
+| For Those About To Rock (We Salute You) | For Those About To Rock We Salute You |        1 |
+| Put The Finger On You                   | For Those About To Rock We Salute You |        1 |
+| Let's Get It Up                         | For Those About To Rock We Salute You |        1 |
+| Inject The Venom                        | For Those About To Rock We Salute You |        1 |
+| Snowballed                              | For Those About To Rock We Salute You |        1 |
+| Evil Walks                              | For Those About To Rock We Salute You |        1 |
+| C.O.D.                                  | For Those About To Rock We Salute You |        1 |
+| Breaking The Rules                      | For Those About To Rock We Salute You |        1 |
+| Night Of The Long Knives                | For Those About To Rock We Salute You |        1 |
+| Spellbound                              | For Those About To Rock We Salute You |        1 |
++-----------------------------------------+---------------------------------------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select Name as Track, Title as Album, Name as Artist from Track inner join Album Track.AlbumID = Album.Album ID
+    -> inner join Artist Album.ArtistID = Artist.ArtistID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.AlbumID = Album.Album ID
+inner join Artist Album.ArtistID = Artist.ArtistID' at line 1
+mysql> select Name as Track, Title as Album, ArtistID, Name as Artist from Track inner join Album on Track.AlbumID = Album.Album ID inner join Artist on Album.ArtistID = Artist.ArtistID limit 10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ID inner join Artist on Album.ArtistID = Artist.ArtistID limit 10' at line 1
+mysql> select Name as Track, Title as Album, Name as Artist from Track inner join Album Track.AlbumID = Album.AlbumID inner join Artist Album.ArtistID = Artist.ArtistID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.AlbumID = Album.AlbumID inner join Artist Album.ArtistID = Artist.ArtistID' at line 1
+mysql> select Name as Track, Title as Album, ArtistID,  Name as Artist from Track inner join Album on Track.AlbumID = Album.AlbumID inner join Artist on Album.ArtistID = Artist.ArtistID limit 10;
+ERROR 1052 (23000): Column 'Name' in field list is ambiguous
+mysql> select Track.Name as Track, Album.Title, ArtistID, Artist.Name as Artist from Track
+    -> inner join Album on Track.Album.Id = Album.AlbumID
+    -> inner join Artist on Album.ArtistID = Artist.ArtistID
+    -> limit 10;
+ERROR 1052 (23000): Column 'ArtistID' in field list is ambiguous
+mysql> select Track.Name as Track, Album.Title as Title, ArtistID, Artist.Name as Artist from Track
+    -> inner join Album on Track.AlbumID = Album.AlbumID
+    -> inner join Artist on Album.ArtistID = Artist.ArtistID
+    -> limit 10;
+ERROR 1052 (23000): Column 'ArtistID' in field list is ambiguous
+mysql> select Track.Name as Track, Album.Title as Title, Artist.ArtistID, Artist.Name as Artist from Track inner join Album on Track.AlbumID = Album.AlbumID inner join Artist on Album.ArtistID = Artist.ArtistID limit 10;
++-----------------------------------------+---------------------------------------+----------+--------+
+| Track                                   | Title                                 | ArtistID | Artist |
++-----------------------------------------+---------------------------------------+----------+--------+
+| For Those About To Rock (We Salute You) | For Those About To Rock We Salute You |        1 | AC/DC  |
+| Put The Finger On You                   | For Those About To Rock We Salute You |        1 | AC/DC  |
+| Let's Get It Up                         | For Those About To Rock We Salute You |        1 | AC/DC  |
+| Inject The Venom                        | For Those About To Rock We Salute You |        1 | AC/DC  |
+| Snowballed                              | For Those About To Rock We Salute You |        1 | AC/DC  |
+| Evil Walks                              | For Those About To Rock We Salute You |        1 | AC/DC  |
+| C.O.D.                                  | For Those About To Rock We Salute You |        1 | AC/DC  |
+| Breaking The Rules                      | For Those About To Rock We Salute You |        1 | AC/DC  |
+| Night Of The Long Knives                | For Those About To Rock We Salute You |        1 | AC/DC  |
+| Spellbound                              | For Those About To Rock We Salute You |        1 | AC/DC  |
++-----------------------------------------+---------------------------------------+----------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select Track.Name as Track, Album.Title as Title, Artist.Name as Artist from Track inner join Album on Track.AlbumID = Album.AlbumID inner join Artist on Album.ArtistID = Artist.ArtistID limit 10;
++-----------------------------------------+---------------------------------------+--------+
+| Track                                   | Title                                 | Artist |
++-----------------------------------------+---------------------------------------+--------+
+| For Those About To Rock (We Salute You) | For Those About To Rock We Salute You | AC/DC  |
+| Put The Finger On You                   | For Those About To Rock We Salute You | AC/DC  |
+| Let's Get It Up                         | For Those About To Rock We Salute You | AC/DC  |
+| Inject The Venom                        | For Those About To Rock We Salute You | AC/DC  |
+| Snowballed                              | For Those About To Rock We Salute You | AC/DC  |
+| Evil Walks                              | For Those About To Rock We Salute You | AC/DC  |
+| C.O.D.                                  | For Those About To Rock We Salute You | AC/DC  |
+| Breaking The Rules                      | For Those About To Rock We Salute You | AC/DC  |
+| Night Of The Long Knives                | For Those About To Rock We Salute You | AC/DC  |
+| Spellbound                              | For Those About To Rock We Salute You | AC/DC  |
++-----------------------------------------+---------------------------------------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select Track.Name as Track, Album.Title as Title, Artist.Name as Name from Track
+    -> inner join Album on Track.AlbumID = Album.AlbumID
+    -> inner join Artist on Album.ArtistID = Artist.ArtistID
+    -> where Artist.Name = "U2"
+    -> limit 10;
++--------------------------------------------+--------------+------+
+| Track                                      | Title        | Name |
++--------------------------------------------+--------------+------+
+| Zoo Station                                | Achtung Baby | U2   |
+| Even Better Than The Real Thing            | Achtung Baby | U2   |
+| One                                        | Achtung Baby | U2   |
+| Until The End Of The World                 | Achtung Baby | U2   |
+| Who's Gonna Ride Your Wild Horses          | Achtung Baby | U2   |
+| So Cruel                                   | Achtung Baby | U2   |
+| The Fly                                    | Achtung Baby | U2   |
+| Mysterious Ways                            | Achtung Baby | U2   |
+| Tryin' To Throw Your Arms Around The World | Achtung Baby | U2   |
+| Ultraviolet (Light My Way)                 | Achtung Baby | U2   |
++--------------------------------------------+--------------+------+
+10 rows in set (0.00 sec)
+
+mysql> select Track.Name as Track, Title as Title, Artist.Name as Name from Track inner join Album on Track.AlbumID = Album.AlbumID inner join Artist on Album.ArtistID = Artist.ArtistID where Artist.Name = "U2" limit 10;
++--------------------------------------------+--------------+------+
+| Track                                      | Title        | Name |
++--------------------------------------------+--------------+------+
+| Zoo Station                                | Achtung Baby | U2   |
+| Even Better Than The Real Thing            | Achtung Baby | U2   |
+| One                                        | Achtung Baby | U2   |
+| Until The End Of The World                 | Achtung Baby | U2   |
+| Who's Gonna Ride Your Wild Horses          | Achtung Baby | U2   |
+| So Cruel                                   | Achtung Baby | U2   |
+| The Fly                                    | Achtung Baby | U2   |
+| Mysterious Ways                            | Achtung Baby | U2   |
+| Tryin' To Throw Your Arms Around The World | Achtung Baby | U2   |
+| Ultraviolet (Light My Way)                 | Achtung Baby | U2   |
++--------------------------------------------+--------------+------+
+10 rows in set (0.00 sec)
+
+mysql> select Track.Name as Track, Title as Title, Artist.Name as Name from Track inner join Album on Track.AlbumID = Album.AlbumID inner join Artist on Album.ArtistID = Artist.ArtistID
+    -> where Artist.Name = "U2" and Track.Name = "Imagine"
+    -> ;
++---------+------------------------------------------------------------------+------+
+| Track   | Title                                                            | Name |
++---------+------------------------------------------------------------------+------+
+| Imagine | Instant Karma: The Amnesty International Campaign to Save Darfur | U2   |
+| Imagine | Instant Karma: The Amnesty International Campaign to Save Darfur | U2   |
++---------+------------------------------------------------------------------+------+
+2 rows in set (0.00 sec)
+
+mysql> select Track.Name as Track, Title as Title, Artist.Name as Name from Track inner join Album on Track.AlbumID = Album.AlbumID inner join Artist on Album.ArtistID = Artist.ArtistID where Artist.Name = "U2" and Track.Name = "Jealous Guy";
++-------------+------------------------------------------------------------------+------+
+| Track       | Title                                                            | Name |
++-------------+------------------------------------------------------------------+------+
+| Jealous Guy | Instant Karma: The Amnesty International Campaign to Save Darfur | U2   |
++-------------+------------------------------------------------------------------+------+
+1 row in set (0.00 sec)
+
+mysql> select Track.Name as Track, Title as Title, Artist.Name as Name from Track inner join Album on Track.AlbumID = Album.AlbumID inner join Artist on Album.ArtistID = Artist.ArtistID where Track.Name = "Believe";
++---------+-------------------------------+-------------------+
+| Track   | Title                         | Name              |
++---------+-------------------------------+-------------------+
+| Believe | Heart of the Night            | Spyro Gyra        |
+| Believe | Greatest Hits                 | Lenny Kravitz     |
+| Believe | Judas 0: B-Sides and Rarities | Smashing Pumpkins |
++---------+-------------------------------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> tee challenge.txt
