@@ -4056,5 +4056,3 @@ mysql> select Name, Title, ArtistID from Track inner join Album on Track.AlbumID
 10 rows in set (0.00 sec)
 
 mysql> tee file.txt
-mysql> Terminal close -- exit!
-Aborted
