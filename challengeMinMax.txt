@@ -1,0 +1,563 @@
+mysql> desc Employee;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| EmployeeId | int         | NO   | PRI | NULL    | auto_increment |
+| LastName   | varchar(20) | NO   |     | NULL    |                |
+| FirstName  | varchar(20) | NO   |     | NULL    |                |
+| Title      | varchar(30) | YES  |     | NULL    |                |
+| ReportsTo  | int         | YES  | MUL | NULL    |                |
+| BirthDate  | datetime    | YES  |     | NULL    |                |
+| HireDate   | datetime    | YES  |     | NULL    |                |
+| Address    | varchar(70) | YES  |     | NULL    |                |
+| City       | varchar(40) | YES  |     | NULL    |                |
+| State      | varchar(40) | YES  |     | NULL    |                |
+| Country    | varchar(40) | YES  |     | NULL    |                |
+| PostalCode | varchar(10) | YES  |     | NULL    |                |
+| Phone      | varchar(24) | YES  |     | NULL    |                |
+| Fax        | varchar(24) | YES  |     | NULL    |                |
+| Email      | varchar(60) | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> select min(BirthDate) from Employee;
++---------------------+
+| min(BirthDate)      |
++---------------------+
+| 1947-09-19 00:00:00 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select max(HireDate) from Employee;
++---------------------+
+| max(HireDate)       |
++---------------------+
+| 2004-03-04 00:00:00 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(Total) from Invoice;
++------------+
+| avg(Total) |
++------------+
+|   5.651942 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select round(Total) from Invoice;
++--------------+
+| round(Total) |
++--------------+
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            7 |
+|           18 |
+|           19 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           22 |
+|            2 |
+|            4 |
+|            4 |
+|            4 |
+|            6 |
+|           10 |
+|           16 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|           15 |
+|           22 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           19 |
+|            2 |
+|            3 |
+|            4 |
+|            8 |
+|            9 |
+|            9 |
+|           16 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|           11 |
+|           24 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           17 |
+|            2 |
+|            4 |
+|            4 |
+|            8 |
+|           12 |
+|           11 |
+|           17 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           26 |
+|            1 |
+|            2 |
+|            2 |
+|            4 |
+|            6 |
+|            9 |
+|           14 |
+|            2 |
++--------------+
+412 rows in set (0.00 sec)
+
+mysql> select round(avg(Total)) from Invoice;
++-------------------+
+| round(avg(Total)) |
++-------------------+
+|                 6 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select round(avg(Total), 2) from Invoice;
++----------------------+
+| round(avg(Total), 2) |
++----------------------+
+|                 5.65 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> desc Invoide;
+ERROR 1146 (42S02): Table 'Chinook.Invoide' doesn't exist
+mysql> desc Invoice;
++-------------------+---------------+------+-----+---------+----------------+
+| Field             | Type          | Null | Key | Default | Extra          |
++-------------------+---------------+------+-----+---------+----------------+
+| InvoiceId         | int           | NO   | PRI | NULL    | auto_increment |
+| CustomerId        | int           | NO   | MUL | NULL    |                |
+| InvoiceDate       | datetime      | NO   |     | NULL    |                |
+| BillingAddress    | varchar(70)   | YES  |     | NULL    |                |
+| BillingCity       | varchar(40)   | YES  |     | NULL    |                |
+| BillingState      | varchar(40)   | YES  |     | NULL    |                |
+| BillingCountry    | varchar(40)   | YES  |     | NULL    |                |
+| BillingPostalCode | varchar(10)   | YES  |     | NULL    |                |
+| Total             | decimal(10,2) | NO   |     | NULL    |                |
++-------------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)show
+mysql> tee challengeMinMax.txt
+mysql> show Tables;
++-------------------+
+| Tables_in_Chinook |
++-------------------+
+| Album             |
+| Artist            |
+| Customer          |
+| Employee          |
+| Genre             |
+| Invoice           |
+| InvoiceLine       |
+| MediaType         |
+| Playlist          |
+| PlaylistTrack     |
+| Track             |
++-------------------+
+11 rows in set (0.00 sec)
+
+mysql> desc InvoiceLine;
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| InvoiceLineId | int           | NO   | PRI | NULL    | auto_increment |
+| InvoiceId     | int           | NO   | MUL | NULL    |                |
+| TrackId       | int           | NO   | MUL | NULL    |                |
+| UnitPrice     | decimal(10,2) | NO   |     | NULL    |                |
+| Quantity      | int           | NO   |     | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> select Total form Invoice
+    -> where InvoiceID = 2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Invoice
+where InvoiceID = 2' at line 1
+mysql> select Total from Invoice where InvoiceID = 2;
++-------+
+| Total |
++-------+
+|  3.96 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select sum(UnitPrice * Quantity) from InvoiceLine
+    -> where InvoiceID = 2;
++---------------------------+
+| sum(UnitPrice * Quantity) |
++---------------------------+
+|                      3.96 |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> select Unitprice, Quantity from InvoiceLine
+    -> where InvoiceID = 2;
++-----------+----------+
+| Unitprice | Quantity |
++-----------+----------+
+|      0.99 |        1 |
+|      0.99 |        1 |
+|      0.99 |        1 |
+|      0.99 |        1 |
++-----------+----------+
+4 rows in set (0.01 sec)
+
+mysql> exit

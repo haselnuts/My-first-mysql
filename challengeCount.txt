@@ -1,0 +1,170 @@
+mysql> desc Customer;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| CustomerId   | int         | NO   | PRI | NULL    | auto_increment |
+| FirstName    | varchar(40) | NO   |     | NULL    |                |
+| LastName     | varchar(20) | NO   |     | NULL    |                |
+| Company      | varchar(80) | YES  |     | NULL    |                |
+| Address      | varchar(70) | YES  |     | NULL    |                |
+| City         | varchar(40) | YES  |     | NULL    |                |
+| State        | varchar(40) | YES  |     | NULL    |                |
+| Country      | varchar(40) | YES  |     | NULL    |                |
+| PostalCode   | varchar(10) | YES  |     | NULL    |                |
+| Phone        | varchar(24) | YES  |     | NULL    |                |
+| Fax          | varchar(24) | YES  |     | NULL    |                |
+| Email        | varchar(60) | NO   |     | NULL    |                |
+| SupportRepId | int         | YES  | MUL | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+13 rows in set (0.01 sec)
+
+mysql> desc Employee;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| EmployeeId | int         | NO   | PRI | NULL    | auto_increment |
+| LastName   | varchar(20) | NO   |     | NULL    |                |
+| FirstName  | varchar(20) | NO   |     | NULL    |                |
+| Title      | varchar(30) | YES  |     | NULL    |                |
+| ReportsTo  | int         | YES  | MUL | NULL    |                |
+| BirthDate  | datetime    | YES  |     | NULL    |                |
+| HireDate   | datetime    | YES  |     | NULL    |                |
+| Address    | varchar(70) | YES  |     | NULL    |                |
+| City       | varchar(40) | YES  |     | NULL    |                |
+| State      | varchar(40) | YES  |     | NULL    |                |
+| Country    | varchar(40) | YES  |     | NULL    |                |
+| PostalCode | varchar(10) | YES  |     | NULL    |                |
+| Phone      | varchar(24) | YES  |     | NULL    |                |
+| Fax        | varchar(24) | YES  |     | NULL    |                |
+| Email      | varchar(60) | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> select * from Employee where EmployeeID = 4;
++------------+----------+-----------+---------------------+-----------+---------------------+---------------------+------------------+---------+-------+---------+------------+-------------------+-------------------+--------------------------+
+| EmployeeId | LastName | FirstName | Title               | ReportsTo | BirthDate           | HireDate            | Address          | City    | State | Country | PostalCode | Phone             | Fax               | Email                    |
++------------+----------+-----------+---------------------+-----------+---------------------+---------------------+------------------+---------+-------+---------+------------+-------------------+-------------------+--------------------------+
+|          4 | Park     | Margaret  | Sales Support Agent |         2 | 1947-09-19 00:00:00 | 2003-05-03 00:00:00 | 683 10 Street SW | Calgary | AB    | Canada  | T2P 5G3    | +1 (403) 263-4423 | +1 (403) 263-4289 | margaret@chinookcorp.com |
++------------+----------+-----------+---------------------+-----------+---------------------+---------------------+------------------+---------+-------+---------+------------+-------------------+-------------------+--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(FirstName) form Customer where SupportRepID = 4;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Customer where SupportRepID = 4' at line 1
+mysql> select count(FirstName) from Customer where SupportRepID = 4;
++------------------+
+| count(FirstName) |
++------------------+
+|               20 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from Customer where SupportRepID = 4;
++----------+
+| count(*) |
++----------+
+|       20 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from Customer
+    -> inner join Employee Customer.SupportRepID = Employee.EmployeeID
+    -> where FirstName = Jane, LastName = Peacock;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.SupportRepID = Employee.EmployeeID
+where FirstName = Jane, LastName = Peacock' at line 2
+mysql> select count(*) from Customer inner join Employee Customer.SupportRepID = Employee.EmployeeID where FirstName = "Jane", LastName = "Peacock";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.SupportRepID = Employee.EmployeeID where FirstName = "Jane", LastName = "Peacoc' at line 1
+mysql> select count(*) from Customer inner join Employee on Customer.SupportRepID = Employee.EmployeeID where FirstName = "Jane", LastName = "Peacock";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', LastName = "Peacock"' at line 1
+mysql> select count(*) from Customer inner join Employee on Customer.SupportRepID = Employee.EmployeeID where FirstName = "Jane" and LastName = "Peacock";
+ERROR 1052 (23000): Column 'FirstName' in where clause is ambiguous
+mysql> select count(*) from Customer inner join Employee on Customer.SupportRepID = Employee.EmployeeID where Employee.FirstName = "Jane" and Employee.LastName = "Peacock";
++----------+
+| count(*) |
++----------+
+|       21 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select Employee.FirstName as Employee, count(Customer.FirstName) as Customer from Customer inner join Employee on Customer.SupportRepID = Employee.EmployeeID where Employee.FirstName = "Jane" and Employee.LastName = "Peacock";
++----------+----------+
+| Employee | Customer |
++----------+----------+
+| Jane     |       21 |
++----------+----------+
+1 row in set (0.00 sec)
+
+mysql> select concat(Employee.FirstName, " ", Employee.LastName) as Employee, count(Customer.FirstName) as Customer from Customer inner join Employee on Customer.SupportRepID = Employee.EmployeeID where Employee.FirstName = "Jane" and Employee.LastName = "Peacock";
++--------------+----------+
+| Employee     | Customer |
++--------------+----------+
+| Jane Peacock |       21 |
++--------------+----------+
+1 row in set (0.00 sec)
+
+mysql> desc MediaType;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| MediaTypeId | int          | NO   | PRI | NULL    | auto_increment |
+| Name        | varchar(120) | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> desc tracks;
+ERROR 1146 (42S02): Table 'Chinook.tracks' doesn't exist
+mysql> desc Tracks;
+ERROR 1146 (42S02): Table 'Chinook.Tracks' doesn't exist
+mysql> desc Track;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| TrackId      | int           | NO   | PRI | NULL    | auto_increment |
+| Name         | varchar(200)  | NO   |     | NULL    |                |
+| AlbumId      | int           | YES  | MUL | NULL    |                |
+| MediaTypeId  | int           | NO   | MUL | NULL    |                |
+| GenreId      | int           | YES  | MUL | NULL    |                |
+| Composer     | varchar(220)  | YES  |     | NULL    |                |
+| Milliseconds | int           | NO   |     | NULL    |                |
+| Bytes        | int           | YES  |     | NULL    |                |
+| UnitPrice    | decimal(10,2) | NO   |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> select MediaType.Name as Name, count(MediaTypeID) form Track
+    -> inner join MediaType on Track.MediaTypeID = MediaType.MediaTypeID:
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Track
+inner join MediaType on Track.MediaTypeID = MediaType.MediaTypeID:' at line 1
+mysql> select MediaType.Name as Name, count(MediaTypeID) form Track inner join MediaType on Track.MediaTypeID = MediaType.MediaTypeID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Track inner join MediaType on Track.MediaTypeID = MediaType.MediaTypeID' at line 1
+mysql> select MediaType.Name as Name, count(MediaTypeID) from Track inner join MediaType on Track.MediaTypeID = MediaType.MediaTypeID;
+ERROR 1052 (23000): Column 'MediaTypeID' in field list is ambiguous
+mysql> select MediaType.Name as Name, count(Track.MediaTypeID) from Track inner join MediaType on Track.MediaTypeID = MediaType.MediaTypeID;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'Chinook.MediaType.Name'; this is incompatible with sql_mode=only_full_group_by
+mysql> select count(Track.MediaTypeID) from Track inner join MediaType on Track.MediaTypeID = MediaType.MediaTypeID;
++--------------------------+
+| count(Track.MediaTypeID) |
++--------------------------+
+|                     3503 |
++--------------------------+
+1 row in set (0.00 sec)
+
+
+mysql> tee challengeCount.txt
+mysql> select count(Track.MediaTypeID) from Track inner join MediaType on Track.MediaTypeID = MediaType.MediaTypeID;
++--------------------------+
+| count(Track.MediaTypeID) |
++--------------------------+
+|                     3503 |
++--------------------------+
+1 row in set (0.01 sec)
+
+mysql> select count(Track.MediaTypeID) from Track inner join MediaType on Track.MediaTypeID = MediaType.MediaTypeID where MediaType.Name = "MPEG audio file";
++--------------------------+
+| count(Track.MediaTypeID) |
++--------------------------+
+|                     3034 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> tee walkthru.txt
