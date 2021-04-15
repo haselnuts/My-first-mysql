@@ -1,0 +1,113 @@
+mysql> desc Track;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| TrackId      | int           | NO   | PRI | NULL    | auto_increment |
+| Name         | varchar(200)  | NO   |     | NULL    |                |
+| AlbumId      | int           | YES  | MUL | NULL    |                |
+| MediaTypeId  | int           | NO   | MUL | NULL    |                |
+| GenreId      | int           | YES  | MUL | NULL    |                |
+| Composer     | varchar(220)  | YES  |     | NULL    |                |
+| Milliseconds | int           | NO   |     | NULL    |                |
+| Bytes        | int           | YES  |     | NULL    |                |
+| UnitPrice    | decimal(10,2) | NO   |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> select AlbumId form Album where Name = "Boy";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Album where Name = "Boy"' at line 1
+mysql> select AlbumId form Album where Title = "Boy";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Album where Title = "Boy"' at line 1
+mysql> select AlbumId from Album where Title = "Boy";
++---------+
+| AlbumId |
++---------+
+|     348 |
++---------+
+1 row in set (0.01 sec)
+
+mysql> select * from MediaType;
++-------------+-----------------------------+
+| MediaTypeId | Name                        |
++-------------+-----------------------------+
+|           1 | MPEG audio file             |
+|           2 | Protected AAC audio file    |
+|           3 | Protected MPEG-4 video file |
+|           4 | Purchased AAC audio file    |
+|           5 | AAC audio file              |
+|          12 | Test Media Type 1           |
++-------------+-----------------------------+
+6 rows in set (0.00 sec)
+
+mysql> desc Genre;
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| GenreId | int          | NO   | PRI | NULL    | auto_increment |
+| Name    | varchar(120) | YES  |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> select GenreId from Genre where Name = "Rock";
++---------+
+| GenreId |
++---------+
+|       1 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> insert into Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice)
+    -> values ("I Will Follow", 348, 2, 1, "U2", 1234, 217000, 0.99);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select Name from Track where AlbumId = 348;
++---------------+
+| Name          |
++---------------+
+| I Will Follow |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> insert into Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice)
+    -> values ("Twilight", 348, 2, 1, "U2", 1234, 262000, 0.99), ("An Cath Dubh", 348, 2, 1, 1234, 286000, 0.99);
+ERROR 1136 (21S01): Column count doesn't match value count at row 2
+mysql> insert into Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice)
+    -> values ("Twilight", 348, 2, 1, "U2", 1234, 262000, 0.99), ("An Cath Dubh", 348, 2, 1, "U2", 1234, 286000, 0.99);
+Query OK, 2 rows affected (0.05 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select Name from Tracks where AlbumId = 348;
+ERROR 1146 (42S02): Table 'Chinook.Tracks' doesn't exist
+mysql> select Name from Track where AlbumId = 348;
++---------------+
+| Name          |
++---------------+
+| I Will Follow |
+| Twilight      |
+| An Cath Dubh  |
++---------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice)
+    -> values ("Into the Heart", 348, 2, 1, "U2", 1234, 207000, 0.99), ("Out of Control", 348, 2, 1, "U2", 1234, 253000, 0.99),
+    -> ("Stories for Boys", 348, 2, 1, "U2", 1234, 182000, 0.99), ("The Ocean", 348, 2, 1, "U2", 1234, 95000, 0.99),
+    -> ("A Day Without Me", 348, 2, 1, "U2", 1234, 193000, 0.99);
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select Name from Track where Albumid = 348;
++------------------+
+| Name             |
++------------------+
+| I Will Follow    |
+| Twilight         |
+| An Cath Dubh     |
+| Into the Heart   |
+| Out of Control   |
+| Stories for Boys |
+| The Ocean        |
+| A Day Without Me |
++------------------+
+8 rows in set (0.00 sec)
+
+mysql> notee

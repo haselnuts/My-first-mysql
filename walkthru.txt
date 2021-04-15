@@ -4312,5 +4312,158 @@ mysql> desc Employee;
 | Email      | varchar(60) | YES  |     | NULL    |                |
 +------------+-------------+------+-----+---------+----------------+
 15 rows in set (0.00 sec)
+mysql> notee
+mysql> show tables
+    -> ;
++-------------------+
+| Tables_in_Chinook |
++-------------------+
+| Album             |
+| Artist            |
+| Customer          |
+| Employee          |
+| Genre             |
+| Invoice           |
+| InvoiceLine       |
+| MediaType         |
+| Playlist          |
+| PlaylistTrack     |
+| Track             |
++-------------------+
+11 rows in set (0.00 sec)
 
-mysql> tee challengeMinMax.txt;
+mysql> notee;
+mysql> select * from MediaType;
++-------------+-----------------------------+
+| MediaTypeId | Name                        |
++-------------+-----------------------------+
+|           1 | MPEG audio file             |
+|           2 | Protected AAC audio file    |
+|           3 | Protected MPEG-4 video file |
+|           4 | Purchased AAC audio file    |
+|           5 | AAC audio file              |
+|           6 | Test Media Type 1           |
+|           7 | Test Media Type 1           |
+|           8 | Test Media Type 1           |
+|           9 | Test Media Type 1           |
+|          10 | Test Media Type 1           |
+|          11 | Test Media Type 1           |
++-------------+-----------------------------+
+11 rows in set (0.00 sec)
+
+mysql> delete from MediaType
+    -> where Name = "Test Media Type 1";
+Query OK, 6 rows affected (0.14 sec)
+
+mysql> select * from MediaType;
++-------------+-----------------------------+
+| MediaTypeId | Name                        |
++-------------+-----------------------------+
+|           1 | MPEG audio file             |
+|           2 | Protected AAC audio file    |
+|           3 | Protected MPEG-4 video file |
+|           4 | Purchased AAC audio file    |
+|           5 | AAC audio file              |
++-------------+-----------------------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into MediaType(Name)
+    -> values ("Test Media Type 1");
+Query OK, 1 row affected (0.39 sec)
+
+mysql> select * from MediaType;
++-------------+-----------------------------+
+| MediaTypeId | Name                        |
++-------------+-----------------------------+
+|           1 | MPEG audio file             |
+|           2 | Protected AAC audio file    |
+|           3 | Protected MPEG-4 video file |
+|           4 | Purchased AAC audio file    |
+|           5 | AAC audio file              |
+|          12 | Test Media Type 1           |
++-------------+-----------------------------+
+6 rows in set (0.00 sec)
+
+mysql> desc Album;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| AlbumId  | int          | NO   | PRI | NULL    | auto_increment |
+| Title    | varchar(160) | NO   |     | NULL    |                |
+| ArtistId | int          | NO   | MUL | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> select Titel form Album
+    -> where ArtistId = 150;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Album
+where ArtistId = 150' at line 1
+mysql> select Titel from Album where ArtistId = 150;
+ERROR 1054 (42S22): Unknown column 'Titel' in 'field list'
+mysql> select Title from Album where ArtistId = 150;
++------------------------------------------------------------------+
+| Title                                                            |
++------------------------------------------------------------------+
+| Achtung Baby                                                     |
+| All That You Can't Leave Behind                                  |
+| B-Sides 1980-1990                                                |
+| How To Dismantle An Atomic Bomb                                  |
+| Pop                                                              |
+| Rattle And Hum                                                   |
+| The Best Of 1980-1990                                            |
+| War                                                              |
+| Zooropa                                                          |
+| Instant Karma: The Amnesty International Campaign to Save Darfur |
++------------------------------------------------------------------+
+10 rows in set (0.01 sec)
+
+mysql> insert into Album (Title, ArtistId)
+    -> values ("Boy", 150);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select Title from Album
+    -> where ArtistId = 150;
++------------------------------------------------------------------+
+| Title                                                            |
++------------------------------------------------------------------+
+| Achtung Baby                                                     |
+| All That You Can't Leave Behind                                  |
+| B-Sides 1980-1990                                                |
+| How To Dismantle An Atomic Bomb                                  |
+| Pop                                                              |
+| Rattle And Hum                                                   |
+| The Best Of 1980-1990                                            |
+| War                                                              |
+| Zooropa                                                          |
+| Instant Karma: The Amnesty International Campaign to Save Darfur |
+| Boy                                                              |
++------------------------------------------------------------------+
+11 rows in set (0.00 sec)
+
+mysql> desc Album;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| AlbumId  | int          | NO   | PRI | NULL    | auto_increment |
+| Title    | varchar(160) | NO   |     | NULL    |                |
+| ArtistId | int          | NO   | MUL | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> desc Track;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| TrackId      | int           | NO   | PRI | NULL    | auto_increment |
+| Name         | varchar(200)  | NO   |     | NULL    |                |
+| AlbumId      | int           | YES  | MUL | NULL    |                |
+| MediaTypeId  | int           | NO   | MUL | NULL    |                |
+| GenreId      | int           | YES  | MUL | NULL    |                |
+| Composer     | varchar(220)  | YES  |     | NULL    |                |
+| Milliseconds | int           | NO   |     | NULL    |                |
+| Bytes        | int           | YES  |     | NULL    |                |
+| UnitPrice    | decimal(10,2) | NO   |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.01 sec)
+
+mysql> tee challengeInsertInto.txt
